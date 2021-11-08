@@ -6,45 +6,39 @@ import matplotlib.pyplot as plt
 
 import matplotlib.animation as animation
 from updateState import updateState
+from initState import blinker,toad,beacon,glider,beehive,loaf,boat,rand
+from OneDimensional import OneDimensional
 
 def main():
-    nCols = 100
-    nRows = 100
-    state = np.random.randint(2, size=[nRows,nCols])
+    nCols = 25
+    nRows = 25
+    state = rand(size = [5,5],padding = 50)
 
     fig = plt.figure(figsize=(10,10))
-    #state = np.zeros([nRows, nCols])
-    #state[1][2] = 1
-    #state[2][2] = 1
-    #state[3][2] = 1
 
-    state[6][6] = 1
-    state[5][5] = 1
-    state[4][5] = 1
-    state[4][6] = 1
-    state[4][7] = 1
-    #state[6][7] = 1
     stateList = [state]
+    initState = [state]
     im = plt.imshow(state, interpolation='none', aspect='auto', vmin=0, vmax=1)
-    fps = 5
+    fps = 20
     nSeconds = 10
-    #print(state)
+
     newState = updateState(state)
     stateList.append(newState)
-    #print(newState)
-    for i in range(100):
+
+    for i in range(fps*nSeconds):
         newState = updateState(newState)
         stateList.append(newState)
 
 
+    state = np.zeros(100)
+    state[50] = 1
+    state = list(np.random.randint(low=0, high=1, size=100)
+    stateList = OneDimensional(state,rule = 90)
 
-    #print(stateList)
-    #def update(state):
 
     def animate_func(i):
         if i % fps == 0:
             print('.', end='')
-
         im.set_array(stateList[i])
         return [im]
 
@@ -56,8 +50,6 @@ def main():
     )
     plt.show()
     #anim.save('sine_wave.gif', writer='imagemagick')
-# Press the green button in the gutter to run the script.
+
 if __name__ == '__main__':
     main()
-
-
