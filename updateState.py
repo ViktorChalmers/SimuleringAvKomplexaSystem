@@ -31,10 +31,14 @@ def calculateSum(state,type = "periodic"):
         lCol = np.copy(state[:, -1])
 
         paddedState = np.pad(state, 1, mode='constant')
-        paddedState[0, 1:-1] = lRow
-        paddedState[-1, 1:-1] = fRow
-        paddedState[1:-1, 0] = lCol
-        paddedState[1:-1, -1] = fCol
+        paddedState[1:-1, 0] = np.copy(state[:, -1])
+        paddedState[1:-1, -1] = np.copy(state[:, 0])
+        paddedState[0, 1:-1] = np.copy(state[-1, :])
+        paddedState[-1, 1:-1] = np.copy(state[0, :])
+        paddedState[0, 0] = np.copy(state[-1, -1])
+        paddedState[-1, -1] = np.copy(state[0, 0])
+        paddedState[0, -1] = np.copy(state[-1, 0])
+        paddedState[-1, 0] = np.copy(state[0, -1])
         #print("Periodic")
     else:
         #print("Padded")
@@ -72,4 +76,37 @@ def calculateSum(state,type = "periodic"):
 
             if (paddedState[i + 1, j + 1] == 1):
                 sum[i - 1][j - 1] = sum[i - 1][j - 1] + 1
+
+    [nRows, nCols] = np.shape(state)
+    sum = np.zeros([nRows, nCols])
+
+    for i in range(nRows):
+        for j in range(nCols):
+            sum[i, j] = np.sum(paddedState[i, j:j + 3]) + \
+                        np.sum(paddedState[i + 2, j:j + 3]) + \
+                        paddedState[i + 1, j] + \
+                        paddedState[i + 1, j + 2]
     return sum
+
+def translate(state,sx,sy):
+    state = np.roll(state, sy, axis=0)
+    state = np.roll(state, sx, axis=1)
+    return state
+def checkState(state1,state2):
+    direction = np.array([
+        [0 ,0],
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1],
+        [1, 1],
+        [1, -1],
+        [-1, 1],
+        [-1, -1],
+    ])
+    for i in direction:
+        if np.array_equal(state2,translate(state1,i[0],i[1])):
+            print('translated direction',  i)
+            return True
+            break
+    return False
