@@ -32,8 +32,12 @@ def main():
 
     state = np.zeros(100)
     state[50] = 1
-    state = list(np.random.randint(low=0, high=1, size=100)
-    stateList = OneDimensional(state,rule = 90)
+
+    state = list(np.random.randint(low = 0,high=1,size=100))
+    print(state)
+
+    rule = 184
+    stateList = OneDimensional(state,rule = rule)
 
 
     def animate_func(i):
@@ -48,7 +52,13 @@ def main():
         frames=nSeconds * fps,
         interval=1000 / fps,  # in ms
     )
-    plt.show()
+    title = f'One Dimensional, rule {rule}'
+    plt.title(title)
+
+    sav = f'One_Dimensional_Rule=,{rule}' + ".gif"
+    print("saving" + sav)
+    anim.save(sav)
+    #plt.show()
     #anim.save('sine_wave.gif', writer='imagemagick')
 
 if __name__ == '__main__':
