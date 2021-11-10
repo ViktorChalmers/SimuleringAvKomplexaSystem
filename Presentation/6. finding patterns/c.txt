@@ -1,0 +1,3 @@
+It is not very easy to find new oscillators and spaceships, most often it does not evolve to a stable pattern that is the same as the starting pattern.
+A better approash would be to let it run for a few generations hoping to find a stable pattern and then compare generation against generation.
+This works better but still most often converges to the already known patterns.

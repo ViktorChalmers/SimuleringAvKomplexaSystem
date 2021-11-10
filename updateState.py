@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def updateState(state):
+def updateState(state,nr=1):
     state = np.array(state)
     paddedState = np.pad(state, 1, mode='constant')
     nRows = np.size(state[0])
@@ -11,14 +11,37 @@ def updateState(state):
     sum = calculateSum(state)
 
     newState = np.zeros([nRows,nCols])
-    for i in range(nRows):
-        for j in range(nCols):
-            if state[i][j] == 1 and sum[i][j] == 2:
-                newState[i][j] = 1
-            if state[i][j] == 1 and sum[i][j] == 3:
-                newState[i][j] = 1
-            if state[i][j] == 0 and sum[i][j] == 3:
+    if(nr==1):
+        for i in range(nRows):
+            for j in range(nCols):
+                if state[i][j] == 1 and sum[i][j] == 2:
                     newState[i][j] = 1
+                if state[i][j] == 1 and sum[i][j] == 3:
+                    newState[i][j] = 1
+                if state[i][j] == 0 and sum[i][j] == 3:
+                        newState[i][j] = 1
+    elif(nr==2):
+        for i in range(nRows):
+            for j in range(nCols):
+                if state[i][j] == 1 and sum[i][j] == 2:
+                    newState[i][j] = 0 #changed
+                if state[i][j] == 1 and sum[i][j] == 3:
+                    newState[i][j] = 1
+                if state[i][j] == 0 and sum[i][j] == 3:
+                        newState[i][j] = 1
+    elif (nr == 3):
+        for i in range(nRows):
+            for j in range(nCols):
+                if state[i][j] == 1 and sum[i][j] == 2:
+                    newState[i][j] = 0
+                if state[i][j] == 1 and sum[i][j] == 3:
+                    newState[i][j] = 1
+                if state[i][j] == 0 and sum[i][j] == 3:
+                    newState[i][j] = 1
+                if state[i][j] == 0 and sum[i][j] == 4:
+                    newState[i][j] = 1
+                if state[i][j] == 0 and sum[i][j] == 5:
+                        newState[i][j] = 1
 
     return newState
 
