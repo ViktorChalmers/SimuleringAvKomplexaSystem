@@ -15,7 +15,7 @@ def main():
     nRows = 10
     #state = rand(size = [10,10],padding = 0)
     stilllife = "glider 3"
-    state = rand([10,10],30)
+    state = glider(3)
 
 
     fig = plt.figure(figsize=(10,10))
@@ -26,11 +26,11 @@ def main():
     fps = 5
     nSeconds = 5
 
-    newState = updateState(state,3)
+    newState = updateState(state,1)
     stateList.append(newState)
 
     for i in range(fps*nSeconds):
-        newState = updateState(newState,3)
+        newState = updateState(newState,1)
         stateList.append(newState)
 
 
@@ -62,7 +62,7 @@ def main():
     #print("saving" + sav)
     sav = f'10x10_Modified_stable3.gif'
     #sav = f'Random_10x10_configuration.gif'
-    anim.save(sav)
+    #anim.save(sav)
     plt.show()
     #anim.save('sine_wave.gif', writer='imagemagick')
 
