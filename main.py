@@ -6,21 +6,24 @@ import matplotlib.pyplot as plt
 
 import matplotlib.animation as animation
 from updateState import updateState
-from initState import blinker,toad,beacon,glider,beehive,loaf,boat,rand
+from initState import blinker,toad,beacon,glider,beehive,loaf,boat,rand,block
 from OneDimensional import OneDimensional
 
 def main():
-    nCols = 25
-    nRows = 25
-    state = rand(size = [5,5],padding = 50)
+    nCols = 10
+    nRows = 10
+    state = rand(size = [10,10],padding = 0)
+    stilllife = "block"
+    state = block()
+
 
     fig = plt.figure(figsize=(10,10))
 
     stateList = [state]
     initState = [state]
     im = plt.imshow(state, interpolation='none', aspect='auto', vmin=0, vmax=1)
-    fps = 20
-    nSeconds = 10
+    fps = 7
+    nSeconds = 3
 
     newState = updateState(state)
     stateList.append(newState)
@@ -30,20 +33,19 @@ def main():
         stateList.append(newState)
 
 
-    state = np.zeros(100)
-    state[50] = 1
-
-    state = list(np.random.randint(low = 0,high=1,size=100))
-    print(state)
-
-    rule = 184
-    stateList = OneDimensional(state,rule = rule)
+    #state = np.zeros(100)
+    #state[50] = 1
+    #state = list(np.random.randint(low = 0,high=2,size=100))
+    #print(state)
+    #rule = 2
+    #stateList = OneDimensional(state,rule = rule)
 
 
     def animate_func(i):
         if i % fps == 0:
             print('.', end='')
         im.set_array(stateList[i])
+        plt.title(f"Still life, {stilllife}, generation {i}")
         return [im]
 
     anim = animation.FuncAnimation(
@@ -52,13 +54,14 @@ def main():
         frames=nSeconds * fps,
         interval=1000 / fps,  # in ms
     )
-    title = f'One Dimensional, rule {rule}'
-    plt.title(title)
+    #title = f'One Dimensional, rule {rule}'
+    #plt.title(title)
 
-    sav = f'One_Dimensional_Rule=,{rule}' + ".gif"
-    print("saving" + sav)
+    #sav = f'One_Dimensional_Rule=,{rule}' + ".gif"
+    #print("saving" + sav)
+    sav = f'Still_Life_{stilllife}.gif'
     anim.save(sav)
-    #plt.show()
+    plt.show()
     #anim.save('sine_wave.gif', writer='imagemagick')
 
 if __name__ == '__main__':

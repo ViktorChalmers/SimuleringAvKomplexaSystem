@@ -6,7 +6,6 @@ def pattern(state):
     pattern = np.zeros([len(state)-2,3])
 
     for i in range(1,len(state)-1):
-
         pattern[i-1,:] = [state[i-1],state[i],state[i+1]]
     return pattern
 
@@ -55,16 +54,39 @@ def update(state,rule=184):
                 nextState[i+1] = 1
             if np.array_equal(pat[i, :], [0,0,1]):
                 nextState[i+1] = 1
+    elif rule == 1:
+        for i in range(len(pat)):
+            if np.array_equal(pat[i,:],[1, 1, 0]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [1, 0, 1]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [0,1,1]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [0,1,0]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [0,0,1]):
+                nextState[i+1] = 0
+    elif rule == 2:
+        for i in range(len(pat)):
+            if np.array_equal(pat[i,:],[1, 1, 0]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [1, 0, 1]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [0,1,1]):
+                nextState[i+1] = 0
+            if np.array_equal(pat[i, :], [0,1,0]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [0,0,1]):
+                nextState[i+1] = 1
+            if np.array_equal(pat[i, :], [1,0,0]):
+                nextState[i+1] = 1
     return nextState
 
 def OneDimensional(state,rule = 184):
 
     nextState = state
-
-
     nGenerations = len(state)
     stateListing = [np.zeros([nGenerations,len(state)])]
-
 
     stateList = np.zeros([nGenerations,len(state)])
     stateList[0,:] = state
