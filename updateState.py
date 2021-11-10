@@ -33,15 +33,17 @@ def updateState(state,nr=1):
         for i in range(nRows):
             for j in range(nCols):
                 if state[i][j] == 1 and sum[i][j] == 2:
-                    newState[i][j] = 0
+                    newState[i][j] = 1
                 if state[i][j] == 1 and sum[i][j] == 3:
                     newState[i][j] = 1
-                if state[i][j] == 0 and sum[i][j] == 3:
-                    newState[i][j] = 1
-                if state[i][j] == 0 and sum[i][j] == 4:
-                    newState[i][j] = 1
+                if state[i][j] == 1 and sum[i][j] == 4:
+                        newState[i][j] = 1 #added
+                if state[i][j] == 1 and sum[i][j] == 5:
+                        newState[i][j] = 0 # added
                 if state[i][j] == 0 and sum[i][j] == 5:
-                        newState[i][j] = 1
+                    newState[i][j] = 1 #changed
+                if state[i][j] == 0 and sum[i][j] == 4:
+                    newState[i][j] = 1 # added
 
     return newState
 

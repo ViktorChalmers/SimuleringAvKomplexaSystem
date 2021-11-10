@@ -24,7 +24,7 @@ def main():
     initState = [state]
     im = plt.imshow(state, interpolation='none', aspect='auto', vmin=0, vmax=1)
     fps = 5
-    nSeconds = 10
+    nSeconds = 5
 
     newState = updateState(state,3)
     stateList.append(newState)
@@ -46,7 +46,7 @@ def main():
         if i % fps == 0:
             print('.', end='')
         im.set_array(stateList[i])
-        plt.title(f"10x10_dead_4neigbours=alive, generation {i}")
+        plt.title(f"10x10_1-2-1,1-3-1,1-4-1,0-5-1,0-4-1, generation {i}")
         return [im]
 
     anim = animation.FuncAnimation(
