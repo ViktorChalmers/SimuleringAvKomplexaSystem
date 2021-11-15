@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 import matplotlib.animation as animation
 from updateState import updateState
-from initState import blinker,toad,beacon,glider,beehive,loaf,boat,rand,block,tub,foundStill
+from initState import blinker,toad,beacon,glider,beehive,loaf,boat,rand,block,tub,foundStill,gli
 from OneDimensional import OneDimensional
 from test import test
 
@@ -15,7 +15,7 @@ def main():
     nRows = 10
     #state = rand(size = [10,10],padding = 0)
     stilllife = "glider 3"
-    state = glider(3)
+    state = gli()
 
 
     fig = plt.figure(figsize=(10,10))
