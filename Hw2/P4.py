@@ -32,13 +32,13 @@ def getFlockIndex(position, L, r):
         flockIndex.append(getParticleInRadius(position, i, L, r))
     return flockIndex
 
-def P4():
-    L = 0
-    N = 0
-    v = 0
-    dt = 0
-    noice = 0
-    steps = 0
+def P4(L,N,v,dt,noice):
+    L = 100
+    N = 1000
+    v = 1
+    dt = 1
+    noice = 0.01
+    steps = 10
 
 
     #[position, theta] = initRandomPositions(N, L)
@@ -52,7 +52,7 @@ def P4():
     print(position)
     #print(open("E:\python.txt").read())
 
-    r = 0
+    r = 1
     velocity = getVelocity(theta, v)
     #plotPeriodic(position, L)
     fi = getGlobalAlignment(velocity, v)
@@ -66,18 +66,18 @@ def P4():
             #plotPeriodic(position, L)
             plotVoronoi(position, L)
             plt.title(f"configurations after iterations = {i},r={r},noice={noice},N={N}")
-            plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
+            #plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
+        fi[i] = getGlobalAlignment(velocity, v)
+        cn[i] = globalClusteringCoefficient(position, L, r)
         flockIndex = getFlockIndex(position, L, r)
         theta = updateTheta(theta,flockIndex,noice,dt)
         velocity = getVelocity(theta, v)
         position = updatePosition(position, velocity, dt, L)
-        fi[i] = getGlobalAlignment(velocity, v)
-        cn[i] = globalClusteringCoefficient(position, L, r)
 
     #fig, ax = plt.subplots()
     plotVoronoi(position, L)
     plt.title(f"configurations after iterations = {steps},r={r},noice={noice},N={N}")
-    plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
+    #plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
     plt.subplot()
     fig, ax = plt.subplots()
     #ax.plot(cn)
@@ -86,7 +86,7 @@ def P4():
     plt.xlabel('timesteps t')
     plt.ylabel('fi,cn')
     plt.legend([r'$\psi$',r'$c$'])
-    plt.savefig(f"fc;iter={steps};r={r};noice={noice};N={N}".replace(".",","))
+    #plt.savefig(f"fc;iter={steps};r={r};noice={noice};N={N}".replace(".",","))
 
     plt.show()
 
