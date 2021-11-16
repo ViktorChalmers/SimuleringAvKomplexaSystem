@@ -52,7 +52,7 @@ def plotHist(rel,sigma,dt,nSteps):
 
 L = 100
 sigma = 1
-nStepsList = [1000,10000,100000,1000000,10000000]
+nStepsList = [1000,10000]
 dt = 0.01
 T = [x * dt for x in nStepsList]
 
