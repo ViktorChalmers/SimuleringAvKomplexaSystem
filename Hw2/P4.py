@@ -59,7 +59,7 @@ def P4(L,N,v,dt,noice,steps,r):
             #plotPeriodic(position, L)
             plotVoronoi(position, L)
             plt.title(f"configurations after iterations = {i},r={r},noice={noice},N={N}")
-            #plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
+            plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
         fi[i] = getGlobalAlignment(velocity, v)
         cn[i] = globalClusteringCoefficient(position, L, r)
         flockIndex = getFlockIndex(position, L, r)
@@ -70,7 +70,7 @@ def P4(L,N,v,dt,noice,steps,r):
     #fig, ax = plt.subplots()
     plotVoronoi(position, L)
     plt.title(f"configurations after iterations = {steps},r={r},noice={noice},N={N}")
-    #plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
+    plt.savefig(f"config;iter={i};r={r};noice={noice};N={N}".replace(".",","))
     plt.subplot()
     fig, ax = plt.subplots()
     #ax.plot(cn)
@@ -79,7 +79,7 @@ def P4(L,N,v,dt,noice,steps,r):
     plt.xlabel('timesteps t')
     plt.ylabel('fi,cn')
     plt.legend([r'$\psi$',r'$c$'])
-    #plt.savefig(f"fc;iter={steps};r={r};noice={noice};N={N}".replace(".",","))
+    plt.savefig(f"fc;iter={steps};r={r};noice={noice};N={N}".replace(".",","))
 
-    plt.show()
+    #plt.show()
 
