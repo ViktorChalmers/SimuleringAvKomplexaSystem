@@ -1,10 +1,12 @@
-from functions import initRandomPositions, getGlobalAlignment,plotPeriodic,getParticleInRadius
+from functions import initRandomPositions, getGlobalAlignment,plotPeriodic,getParticleInRadius,getVelocity
 import matplotlib.pyplot as plt
 import numpy as np
 
 def P2(N,L,nr,r):
     [position, theta] = initRandomPositions(N,L)
-    globalAlignment = getGlobalAlignment(position,nr,r,L)
+    velocity = getVelocity(theta)
+    globalAlignment = getGlobalAlignment(position,nr,r,L,velocity)
+
 
     posIndex = getParticleInRadius(position, nr, L, r)
     ret = np.zeros([len(posIndex), 2])

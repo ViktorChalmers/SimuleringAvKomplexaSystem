@@ -9,7 +9,8 @@ def P1(L,r,nr,N,part,step=1):
     particleNr = nr
     nParticles = N
 
-    position = initRandomPositions(nParticles, boundaryLength)
+    [position, theta] = initRandomPositions(nParticles, boundaryLength)
+
     if part=="a":
         posIndex = getParticleInRadius(position,particleNr,r = flockingRadius,L = boundaryLength)
 
@@ -21,7 +22,7 @@ def P1(L,r,nr,N,part,step=1):
         plt.plot(ret[:, 0], ret[:, 1], "*",color="r")
         circle1 = plt.Circle((position[particleNr]), flockingRadius, fill=False)
         ax.add_patch(circle1)
-
+        print(posIndex)
         plt.show()
     elif part=="b":
         plt.plot(position[:, 0], position[:, 1], "o")
