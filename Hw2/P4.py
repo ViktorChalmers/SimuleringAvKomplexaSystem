@@ -32,13 +32,7 @@ def getFlockIndex(position, L, r):
         flockIndex.append(getParticleInRadius(position, i, L, r))
     return flockIndex
 
-def P4(L,N,v,dt,noice):
-    L = 100
-    N = 1000
-    v = 1
-    dt = 1
-    noice = 0.01
-    steps = 10
+def P4(L,N,v,dt,noice,steps,r):
 
 
     #[position, theta] = initRandomPositions(N, L)
@@ -49,10 +43,9 @@ def P4(L,N,v,dt,noice):
     theta = np.load('theta.npy')
 
 
-    print(position)
+
     #print(open("E:\python.txt").read())
 
-    r = 1
     velocity = getVelocity(theta, v)
     #plotPeriodic(position, L)
     fi = getGlobalAlignment(velocity, v)
