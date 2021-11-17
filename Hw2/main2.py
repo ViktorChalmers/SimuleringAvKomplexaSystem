@@ -8,14 +8,14 @@ from P4 import P4
 #P1(L=5,r=2,nr=0,N=10,part = "a",step=1)
 #P2(N=15,L=5,r=2,nr=0)
 #P3()
-#P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=20,r=1)
-#P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=2)
-#P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=10)
+P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=1)
+P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=2)
+P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=10)
 
-#P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=1)
-#P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=2)
-#P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=10)
+P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=1)
+P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=2)
+P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=10)
 
-#P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=10**4,r=1)
-#P4(L=100,N=1000,v=1,dt=1,noice=0.1,steps=10**4,r=1)
+P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=10**4,r=1)
+P4(L=100,N=1000,v=1,dt=1,noice=0.1,steps=10**4,r=1)
 
