@@ -39,8 +39,15 @@ def P8(L,N,v,dt,noice,steps,r,h):
     #np.save('position1000', position)
     #np.save('theta1000', theta)
 
-    position = np.load('position1000.npy')
-    theta = np.load('theta1000.npy')
+    if N == 100 and L == 100:
+        position = np.load('position.npy')
+        theta = np.load('theta.npy')
+    elif N == 1000 and L == 100:
+        position = np.load('position1000L100.npy')
+        theta = np.load('theta1000L100.npy')
+    elif N == 100 and L == 1000:
+        position = np.load('position100L1000.npy')
+        theta = np.load('theta100L1000.npy')
 
 
 

@@ -35,12 +35,20 @@ def getFlockIndex(position, L, r):
 def P4(L,N,v,dt,noice,steps,r):
 
 
-    #[position, theta] = initRandomPositions(N, L)
-    #np.save('position', position)
-    #np.save('theta', theta)
+    #[position, theta] = initRandomPositions(100,1000)
+    #np.save('position100L1000', position)
+    #np.save('theta100L1000', theta)
 
-    position = np.load('position.npy')
-    theta = np.load('theta.npy')
+    if N == 100 and L == 100:
+        position = np.load('position.npy')
+        theta = np.load('theta.npy')
+    elif N == 1000 and L == 100:
+        position = np.load('position1000L100.npy')
+        theta = np.load('theta1000L100.npy')
+    elif N == 100 and L == 1000:
+        position = np.load('position100L1000.npy')
+        theta = np.load('theta100L1000.npy')
+
 
 
 
