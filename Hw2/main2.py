@@ -21,6 +21,6 @@ from P8 import P8
 #P4(L=100,N=1000,v=1,dt=1,noice=0.1,steps=1000,r=1)
 
 
-#P8(L=1000,N=100,v=3,dt=1,noice=0.4,steps=3000,r=20,h=2)
-#P8(L=1000,N=100,v=3,dt=1,noice=0.4,steps=3000,r=20,h=25)
+P8(L=1000,N=100,v=3,dt=1,noice=0.4,steps=3000,r=20,h=8)
+P8(L=1000,N=100,v=3,dt=1,noice=0.4,steps=3000,r=20,h=15)
 
