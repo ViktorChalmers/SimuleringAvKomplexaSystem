@@ -29,6 +29,6 @@ from P10 import P10
 #P9(L=1000,N=100,v=3,dt=1,noice=0.4,steps=1000,r=20,h=-2)
 #P9(L=1000,N=100,v=3,dt=1,noice=0.4,steps=1000,r=20,h=-5)
 
-#P10(L=100,N=100,v=1,dt=1,noice=0.1,steps=1000,r=1,k=3)
+P10(L=100,N=100,v=1,dt=1,noice=0.1,steps=10000,r=1,k=1)
 
 
