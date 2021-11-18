@@ -20,7 +20,7 @@ from P11 import P11,P11test#
 #P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=2)
 #P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=10)
 
-#P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=100,r=1)
+P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=100,r=1)
 #P4(L=100,N=1000,v=1,dt=1,noice=0.1,steps=1000,r=1)
 
 
