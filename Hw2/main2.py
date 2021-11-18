@@ -9,7 +9,7 @@ from P9 import P9
 from P10 import P10
 from P11 import P11,P11test#
 
-P1(L=5,r=2,nr=0,N=10,part = "b",step=1)
+#P1(L=5,r=2,nr=0,N=10,part = "b",step=1)
 #P2(N=15,L=5,r=2,nr=0)
 #P3()
 #P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=1)
@@ -20,7 +20,7 @@ P1(L=5,r=2,nr=0,N=10,part = "b",step=1)
 #P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=2)
 #P4(L=100,N=100,v=1,dt=1,noice=0.1,steps=10**4,r=10)
 
-#P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=1000,r=1)
+P4(L=100,N=1000,v=1,dt=1,noice=0.01,steps=100,r=1)
 #P4(L=100,N=1000,v=1,dt=1,noice=0.1,steps=1000,r=1)
 
 
@@ -37,7 +37,7 @@ P1(L=5,r=2,nr=0,N=10,part = "b",step=1)
 
 #P11test(L=10,N=25,v=1,dt=1,noice=0.1,steps=3000,r=5, alpha=np.pi/2)
 
-P11(L=100,N=100,v=1,dt=1,noice=0.1,steps=1000,r=1,alpha = np.pi/4)
+#P11(L=100,N=100,v=1,dt=1,noice=0.1,steps=1000,r=1,alpha = np.pi/4)
 
 
 

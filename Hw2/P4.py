@@ -62,7 +62,7 @@ def P4(L,N,v,dt,noice,steps,r):
     fi = np.zeros([steps])
     cn = np.zeros([steps])
     for i in trange(steps):
-        if i == 0 or i == 10 or i == 100 or i == 1000:
+        if i == 0 or i == 10 or i == 100 or i == 500 or i == 1000:
             #fig, ax = plt.subplots()
             #plotPeriodic(position, L)
             plotVoronoi(position, L)
