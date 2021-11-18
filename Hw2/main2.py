@@ -9,7 +9,7 @@ from P9 import P9
 from P10 import P10
 from P11 import P11,P11test#
 
-#P1(L=5,r=2,nr=0,N=10,part = "a",step=1)
+P1(L=5,r=2,nr=0,N=10,part = "b",step=1)
 #P2(N=15,L=5,r=2,nr=0)
 #P3()
 #P4(L=100,N=100,v=1,dt=1,noice=0.01,steps=10**4,r=1)
