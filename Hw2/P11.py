@@ -158,7 +158,7 @@ def P11(L,N,v,dt,noice,steps,r,alpha):
     #fig, ax = plt.subplots()
     plotVoronoi(position, L)
     plt.title(f"configurations after iterations = {steps},r={r},noice={noice},N={N}")
-    plt.savefig(f"P11config;iter={i};r={r};noice={noice};N={N},k={k},alpha={alpha}".replace(".",","))
+    plt.savefig(f"P11config;iter={i};r={r};noice={noice};N={N},alpha={alpha}".replace(".",","))
     plt.subplot()
     fig, ax = plt.subplots()
     #ax.plot(cn)
@@ -167,6 +167,6 @@ def P11(L,N,v,dt,noice,steps,r,alpha):
     plt.xlabel('timesteps t')
     plt.ylabel('fi,cn')
     plt.legend([r'$\psi$',r'$c$'])
-    plt.savefig(f"P11fc;iter={steps};r={r};noice={noice};N={N},k={k},alpha={alpha}".replace(".",","))
+    plt.savefig(f"P11fc;iter={steps};r={r};noice={noice};N={N},alpha={alpha}".replace(".",","))
 
     #plt.show()
