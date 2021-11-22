@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from tkinter import *
 from Person import Person
 from matplotlib import animation
+from P1 import P1
 
 def randomWalk(obj,probability,lattice):
     r = np.random.rand()
@@ -69,56 +70,75 @@ def recoverProbability(listInfected,probRecover):
             listRecovered.append(objInfected)
             listInfected.remove(objInfected)
 
+def deathProbability(listInfected,probDeath):
+    for objInfected in listInfected:
+        mu = np.random.rand()
+        if mu < probDeath:
+            objInfected.updateState("dead")
+            listDead.append(objInfected)
+            listInfected.remove(objInfected)
+
+def suspectibleProbability(listRecovered,probSusceptible):
+    for objRecovered in listRecovered:
+        alpha = np.random.rand()
+        if alpha < probSusceptible:
+            objRecovered.updateState("suspectible")
+            listSuspectible.append(objRecovered)
+            listRecovered.remove(objRecovered)
+
 
 def runSIR(listInfected,listSuspectible,listRecovered):
-    #testLists(listInfected,listSuspectible,listRecovered)
     performRandomWalk(listSuspectible,probRandomWalk,lattice)
     performRandomWalk(listInfected,probRandomWalk,lattice)
     performRandomWalk(listRecovered, probRandomWalk,lattice)
     diffusionProbability(listInfected,listSuspectible,probDiffusion)
     recoverProbability(listInfected,probRecover)
+    if probDeath>0:
+        deathProbability(listInfected,probDeath)
+    if probSusceptible >0:
+        suspectibleProbability(listRecovered,probSusceptible)
 
 lattice = 100
 nSuspectible = 990
 nInfected = 10
 nRecovered = 0
+nDead = 0
+
 listSuspectible = [Person(state = "suspectible", lattice = lattice) for i in range(nSuspectible)]
 listInfected = [Person(state = "infected", lattice = lattice) for i in range(nInfected)]
 listRecovered = [Person(state = "infected", lattice = lattice) for i in range(nRecovered)]
-#print(len(listRecovered))
+listDead = [Person(state = "dead", lattice = lattice) for i in range(nDead)]
 
 probRandomWalk = 0.8
-probDiffusion = 0.6
-probRecover = 0.01
+probDiffusion = 0.1
+probRecover = 0.2
+probDeath = 0
+probSusceptible = 0
 
-
-for obj in listSuspectible:
-    randomWalk(obj,probRandomWalk,lattice)
-
-for obj in listInfected:
-    randomWalk(obj,probRandomWalk,lattice)
-
-
-#testLists(listInfected,listSuspectible,listRecovered)
 timeStep = 0
 nrInfected = []
 nrSuspectible = []
 nrRecovered = []
+nrDead = []
+
 while len(listInfected):
     runSIR(listInfected,listSuspectible,listRecovered)
     nrInfected.append(len(listInfected))
     nrSuspectible.append(len(listSuspectible))
     nrRecovered.append(len(listRecovered))
+    nrDead.append(len(listDead))
     if timeStep % 10 == 0:
-        print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)}")
+        print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
     timeStep += 1
 
 print(timeStep)
 plt.plot(nrInfected,color="orange")
 plt.plot(nrSuspectible,color="blue")
 plt.plot(nrRecovered,color="green")
+plt.plot(nrDead,color="black")
 plt.show()
 testLists(listInfected,listSuspectible,listRecovered)
 
+P1()
 
 

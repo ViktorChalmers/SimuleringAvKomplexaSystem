@@ -35,8 +35,8 @@ def diffusionProbability(listInfected,listSuspectible,probDiffusion):
                     listSuspectible.remove(objSuspectible)
 
 
-def testLists(listInfected,listSustectible,listRecovered):
-    print(f"#inf = {len(listInfected)} #sus = {len(listSustectible)} #rec = {len(listRecovered)}")
+def testLists(listInfected,listSuspectible,listRecovered):
+    print(f"#inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)}")
     for objInfected in listInfected:
         if objInfected.state != "infected":
             print("object not infected")
@@ -61,7 +61,7 @@ def testLists(listInfected,listSustectible,listRecovered):
     plt.plot(xRecovered,yRecovered,"p",color="green")
     plt.show()
 
-def recoverProbability(listInfected,probRecover):
+def recoverProbability(listInfected,listRecovered,probRecover):
     for objInfected in listInfected:
         gamma = np.random.rand()
         if gamma < probRecover:
@@ -69,56 +69,75 @@ def recoverProbability(listInfected,probRecover):
             listRecovered.append(objInfected)
             listInfected.remove(objInfected)
 
+def deathProbability(listInfected,listDead,probDeath):
+    for objInfected in listInfected:
+        mu = np.random.rand()
+        if mu < probDeath:
+            objInfected.updateState("dead")
+            listDead.append(objInfected)
+            listInfected.remove(objInfected)
 
-def runSIR(listInfected,listSuspectible,listRecovered):
-    #testLists(listInfected,listSuspectible,listRecovered)
+def suspectibleProbability(listRecovered,listSuspectible,probSusceptible):
+    for objRecovered in listRecovered:
+        alpha = np.random.rand()
+        if alpha < probSusceptible:
+            objRecovered.updateState("suspectible")
+            listSuspectible.append(objRecovered)
+            listRecovered.remove(objRecovered)
+
+
+def runSIR(lattice,listInfected,listSuspectible,listRecovered,probRandomWalk,probDiffusion,probRecover,probDeath,probSusceptible):
     performRandomWalk(listSuspectible,probRandomWalk,lattice)
     performRandomWalk(listInfected,probRandomWalk,lattice)
     performRandomWalk(listRecovered, probRandomWalk,lattice)
     diffusionProbability(listInfected,listSuspectible,probDiffusion)
-    recoverProbability(listInfected,probRecover)
+    recoverProbability(listInfected,listRecovered,probRecover)
+    if probDeath>0:
+        deathProbability(listInfected,probDeath)
+    if probSusceptible >0:
+        suspectibleProbability(listRecovered,listSuspectible,probSusceptible)
 
-lattice = 100
-nSuspectible = 990
-nInfected = 10
-nRecovered = 0
-listSuspectible = [Person(state = "suspectible", lattice = lattice) for i in range(nSuspectible)]
-listInfected = [Person(state = "infected", lattice = lattice) for i in range(nInfected)]
-listRecovered = [Person(state = "infected", lattice = lattice) for i in range(nRecovered)]
-#print(len(listRecovered))
-
-probRandomWalk = 0.8
-probDiffusion = 0.6
-probRecover = 0.01
-
-
-for obj in listSuspectible:
-    randomWalk(obj,probRandomWalk,lattice)
-
-for obj in listInfected:
-    randomWalk(obj,probRandomWalk,lattice)
+def P1( lattice,
+        nSuspectible,
+        nInfected,
+        nRecovered,
+        nDead,
+        probRandomWalk,
+        probDiffusion,
+        probRecover,
+        probDeath = 0,
+        probSusceptible = 0):
 
 
-#testLists(listInfected,listSuspectible,listRecovered)
-timeStep = 0
-nrInfected = []
-nrSuspectible = []
-nrRecovered = []
-while len(listInfected):
-    runSIR(listInfected,listSuspectible,listRecovered)
-    nrInfected.append(len(listInfected))
-    nrSuspectible.append(len(listSuspectible))
-    nrRecovered.append(len(listRecovered))
-    if timeStep % 10 == 0:
-        print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)}")
-    timeStep += 1
+    listSuspectible = [Person(state = "suspectible", lattice = lattice) for i in range(nSuspectible)]
+    listInfected = [Person(state = "infected", lattice = lattice) for i in range(nInfected)]
+    listRecovered = [Person(state = "infected", lattice = lattice) for i in range(nRecovered)]
+    listDead = [Person(state = "dead", lattice = lattice) for i in range(nDead)]
 
-print(timeStep)
-plt.plot(nrInfected,color="orange")
-plt.plot(nrSuspectible,color="blue")
-plt.plot(nrRecovered,color="green")
-plt.show()
-testLists(listInfected,listSuspectible,listRecovered)
+
+
+    timeStep = 0
+    nrInfected = []
+    nrSuspectible = []
+    nrRecovered = []
+    nrDead = []
+    while len(listInfected):
+        runSIR(lattice,listInfected,listSuspectible,listRecovered,probRandomWalk,probDiffusion,probRecover,probDeath,probSusceptible)
+        nrInfected.append(len(listInfected))
+        nrSuspectible.append(len(listSuspectible))
+        nrRecovered.append(len(listRecovered))
+        nrDead.append(len(listDead))
+        if timeStep % 10 == 0:
+            print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
+        timeStep += 1
+
+    print(timeStep)
+    plt.plot(nrInfected,color="orange")
+    plt.plot(nrSuspectible,color="blue")
+    plt.plot(nrRecovered,color="green")
+    plt.plot(nrDead,color="black")
+    plt.show()
+    testLists(listInfected,listSuspectible,listRecovered)
 
 
 

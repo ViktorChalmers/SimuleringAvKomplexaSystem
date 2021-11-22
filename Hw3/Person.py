@@ -14,6 +14,8 @@ class Person:
             self.state = state
         elif state == "suspectible":
             self.state = state
+        elif state == "dead":
+            self.state = state
         else:
             print("Oops, unaccepted state")
 
@@ -41,6 +43,8 @@ class Person:
         elif state == "recovered":
             self.state = state
         elif state == "suspectible":
+            self.state = state
+        elif state == "dead":
             self.state = state
         else:
             print("Oops, unaccepted state")
