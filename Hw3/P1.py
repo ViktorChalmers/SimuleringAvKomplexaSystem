@@ -140,8 +140,8 @@ def P1( lattice,
         nrSuspectible.append(len(listSuspectible))
         nrRecovered.append(len(listRecovered))
         nrDead.append(len(listDead))
-        #if timeStep % 10 == 0:
-         #   print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
+        #if timeStep % 500 == 0:
+            #print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
         timeStep += 1
     if plott == True:
         print(timeStep)
