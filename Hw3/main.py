@@ -34,8 +34,8 @@ def diffusionProbability(listInfected,listSuspectible,probDiffusion):
                     objSuspectible.updateState("infected")
                     listInfected.append(objSuspectible)
                     listSuspectible.remove(objSuspectible)
-
-
+Boogie woogie bitch
+''' 
 def testLists(listInfected,listSustectible,listRecovered):
     print(f"#inf = {len(listInfected)} #sus = {len(listSustectible)} #rec = {len(listRecovered)}")
     for objInfected in listInfected:
@@ -61,7 +61,7 @@ def testLists(listInfected,listSustectible,listRecovered):
     plt.plot(xSuspectible,ySuspectible,"*",color="blue")
     plt.plot(xRecovered,yRecovered,"p",color="green")
     plt.show()
-
+'''
 def recoverProbability(listInfected,probRecover):
     for objInfected in listInfected:
         gamma = np.random.rand()

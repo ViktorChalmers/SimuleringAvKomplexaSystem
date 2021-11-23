@@ -116,7 +116,8 @@ def P1( lattice,
         probDiffusion,
         probRecover,
         probDeath,
-        probSusceptible):
+        probSusceptible,
+        plott = True):
 
 
 
@@ -139,20 +140,22 @@ def P1( lattice,
         nrSuspectible.append(len(listSuspectible))
         nrRecovered.append(len(listRecovered))
         nrDead.append(len(listDead))
-        if timeStep % 10 == 0:
-            print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
+        #if timeStep % 10 == 0:
+         #   print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
         timeStep += 1
-
-    print(timeStep)
-    plt.plot(nrInfected,color="orange")
-    plt.plot(nrSuspectible,color="blue")
-    plt.plot(nrRecovered,color="green")
-    plt.plot(nrDead,color="black")
-    plt.title(f"lattice={lattice}, ninf = [{nInfected} {nSuspectible}], $d$={probRandomWalk}, $\u03B2$={probDiffusion}, $\gamma$={probRecover}, $\mu$={probDeath}, $\u03B1$={probSusceptible}")
-    plt.legend(["infected","susceptible","recovered"])
-    plt.savefig(f"d={probRandomWalk};beta={probDiffusion};gamma={probRecover};mu={probDeath};alpha={probSusceptible}".replace(".",","))
-    #testLists(listInfected,listSuspectible,listRecovered,listDead)
-    plt.clf()
-    plt.show(block=False)
+    if plott == True:
+        print(timeStep)
+        plt.plot(nrInfected,color="orange")
+        plt.plot(nrSuspectible,color="blue")
+        plt.plot(nrRecovered,color="green")
+        plt.plot(nrDead,color="black")
+        plt.title(f"lattice={lattice}, ninf = [{nInfected} {nSuspectible}], $d$={probRandomWalk}, $\u03B2$={probDiffusion}, $\gamma$={probRecover}, $\mu$={probDeath}, $\u03B1$={probSusceptible}")
+        plt.legend([f"infected:{len(listInfected)}",f"susceptible:{len(listSuspectible)}",f"recovered:{len(listRecovered)}",f"dead:{len(listDead)}"])
+        plt.savefig(f"d={probRandomWalk};beta={probDiffusion};gamma={probRecover};mu={probDeath};alpha={probSusceptible}".replace(".",","))
+        #testLists(listInfected,listSuspectible,listRecovered,listDead)
+        plt.clf()
+        plt.show(block=False)
+    else:
+        return len(listRecovered)
 
 
