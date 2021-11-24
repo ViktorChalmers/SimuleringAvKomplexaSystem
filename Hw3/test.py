@@ -25,7 +25,18 @@ from tqdm import tqdm,trange
 #P1(lattice=100,   nSuspectible=990, nInfected=10, nRecovered=0, nDead=0,  probRandomWalk=0.8, probDiffusion=1,      probRecover=0.01,   probDeath = 0.1,  probSusceptible = 0)
 #P1(lattice=100,   nSuspectible=990, nInfected=10, nRecovered=0, nDead=0,  probRandomWalk=0.8, probDiffusion=1,      probRecover=0.01,   probDeath = 0.01,  probSusceptible = 0)
 
-avg = 3
+#[position, theta] = initRandomPositions(100,1000)
+    #np.save('position100L1000', position)
+    #np.save('theta100L1000', theta)
+
+    #if N == 100 and L == 100:
+      #  position = np.load('position.npy')
+       # theta = np.load('theta.npy')
+
+
+print(np.load("R(beta,gamma=0,01).npy"))
+print(np.load("R(beta,gamma=0,02).npy"))
+avg = 2
 beta = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
 R = np.zeros(len(beta))
 gammalist = [0.01,0.02]
@@ -34,7 +45,7 @@ for j in range(len(gammalist)):
     gamma = gammalist[j]
     for i in range(len(beta)):
         probDiffusion = beta[i]
-        for k in range(2):
+        for k in range(avg):
             R[i] +=  P1(lattice=100,
                             nSuspectible=990,
                             nInfected=10,
@@ -48,15 +59,15 @@ for j in range(len(gammalist)):
                             plott=False
                             )/avg
         print(f"----------------------------------gamma={gammalist[j]}, R={R[i]}, beta={beta[i]}")
-    #plt.legend(f"gamma = {gamma}")
     plt.plot(beta,R,"o")
-
+    np.save(f"R(beta,gamma={gamma})".replace(".",","), R)
 
 
 plt.title("Final number of recovered agends as a function of the infection rate")
 plt.legend(gammalist)
-plt.show()
+
 plt.savefig(f"AverageR_over_multiple_Beta2".replace(".",","))
+plt.show()
 
 #gammalist = [0.01,0.01]
 #beta = [0.1,0.2]
