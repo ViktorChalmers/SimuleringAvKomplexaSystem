@@ -46,7 +46,7 @@ for j in range(len(gammalist)):
                             probDeath = 0,
                             probSusceptible = 0,
                             plott=False
-                            )/2
+                            )/avg
         print(f"----------------------------------gamma={gammalist[j]}, R={R[i]}, beta={beta[i]}")
     #plt.legend(f"gamma = {gamma}")
     plt.plot(beta,R,"o")
