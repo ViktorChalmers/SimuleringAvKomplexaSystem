@@ -143,6 +143,7 @@ def P1( lattice,
         #if timeStep % 500 == 0:
             #print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
         timeStep += 1
+        #print(timeStep)
     if plott == True:
         print(timeStep)
         plt.plot(nrInfected,color="orange")
