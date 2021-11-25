@@ -107,7 +107,7 @@ def runSIR(lattice,listInfected,listSuspectible,listRecovered,listDead,probRando
     if probSusceptible >0:
         suspectibleProbability(listRecovered,listSuspectible,probSusceptible)
 
-def P1( lattice,
+def P4( lattice,
         nSuspectible,
         nInfected,
         nRecovered,
@@ -117,7 +117,8 @@ def P1( lattice,
         probRecover,
         probDeath,
         probSusceptible,
-        plott = True):
+        plott = True,
+        stepLock=0):
 
 
 
@@ -143,6 +144,12 @@ def P1( lattice,
         if timeStep % 10 == 0:
             print(f"timestep = {timeStep} #inf = {len(listInfected)} #sus = {len(listSuspectible)} #rec = {len(listRecovered)} dead = {len(listDead)}")
         timeStep += 1
+        if timeStep == stepLock:
+            probRandomWalk = 0.1
+            print(f"{timeStep}, lockdown in place")
+        if timeStep == stepLock+200:
+            probRandomWalk = 1
+            print(f"{timeStep}, lockdown done")
         #print(timeStep)
     if plott == True:
         print(timeStep)
@@ -150,9 +157,9 @@ def P1( lattice,
         plt.plot(nrSuspectible,color="blue")
         plt.plot(nrRecovered,color="green")
         plt.plot(nrDead,color="black")
-        plt.title(f"lattice={lattice}, ninf = [{nInfected} {nSuspectible}], $d$={probRandomWalk}, $\u03B2$={probDiffusion}, $\gamma$={probRecover}, $\mu$={probDeath}, $\u03B1$={probSusceptible}")
+        plt.title(f"lockdownattimestep={stepLock}, ninf = [{nInfected} {nSuspectible}], $d$={probRandomWalk}, $\u03B2$={probDiffusion}, $\gamma$={probRecover}, $\mu$={probDeath}, $\u03B1$={probSusceptible}")
         plt.legend([f"infected:{len(listInfected)}",f"susceptible:{len(listSuspectible)}",f"recovered:{len(listRecovered)}",f"dead:{len(listDead)}"])
-        plt.savefig(f"d={probRandomWalk};beta={probDiffusion};gamma={probRecover};mu={probDeath};alpha={probSusceptible}".replace(".",","))
+        plt.savefig(f"{len(listRecovered)};lockdownattimestep={stepLock};beta={probDiffusion};gamma={probRecover};mu={probDeath};alpha={probSusceptible}".replace(".",","))
         #testLists(listInfected,listSuspectible,listRecovered,listDead)
         plt.clf()
         plt.show(block=False)
