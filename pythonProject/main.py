@@ -11,6 +11,7 @@ def getStats(N,n,m,reward):#return stats for player with strategy n
     stats = 0
     for i in range(N):
         if i <= n - 1 and i <= m - 1:
+
             stats += R
         elif n < m:
             stats += T
@@ -93,28 +94,33 @@ def playGame(state,N,reward):
         for j in range(len(state)):
             index = np.array([i,j])
             [selfStrategy, neigborStrategy] = getVonNeumannNeighbors(expandedState,index)
-            print(neigborStrategy)
+            #print(neigborStrategy)
             stats = np.zeros(4)
             for k in range(4):
                 stats[k] = getStats(N, selfStrategy, neigborStrategy[k], reward)
             print(stats)
-            minNeigbourIndex = np.argmin(stats)
-            if getStats(N, minNeigbourIndex, selfStrategy,  reward) > stats[minNeigbourIndex]:
+            minNeigbourIndex = np.argmax(stats)
+            if getStats(N, minNeigbourIndex, selfStrategy,  reward) < stats[minNeigbourIndex]:
                 state[index[0],index[1]] = neigborStrategy[minNeigbourIndex]
     print(state)
+    return state
 
 
-def P2(part="a", L = 10, N=10, reward=[0,0.5,1,1.5]):
+def P2(part="a", L = 10, N=9, reward=[0,0.5,1,1.5]):
     if part == "a":
         state = np.ones([L, L])*N
         #state = np.random.randint(10,size=[L,L])
         mid = int(L/2)
         state[mid,mid] = 0
-        state = playGame(state,N,reward)
+
+        for i in range(2):
+            state = playGame(state,N,reward)
+
 
 if __name__ == '__main__':
     #P1(part="a",N=10,reward=[0,0.5,1,1.5],m=10)
     #P1(part="b",N=10,reward=[0,.01,1,10])
-    R = 0.5
-    #P2(part="a", L=3, N=10, reward=[0,R,1,1.5])
-    print(getStats(N=10, n=10, m=10, reward=[0,R,1,1.5]))
+    R = 0.9
+    P2(part="a", L=10, N=10, reward=[0,R,1,1.5])
+    #print(getStats(N=10, n=10, m=10, reward=[0, R, 1, 1.5]))
+
