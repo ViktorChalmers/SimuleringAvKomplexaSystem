@@ -119,6 +119,10 @@ def playGame(state,N,reward,mu):
             if r<mu:
                 randomScore = np.random.randint(N+1)
                 state[i,j] = randomScore
+                #if state[i,j] == N:
+                 #   state[i,j] = 0
+                #else:
+                 #   state[i,j] = N
             else:
                 if neigborScore[minIndex] < selfScore:
 
@@ -201,8 +205,8 @@ def P2(part="a", L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
         )
         saveName = f'2{part}nrDef={nrDef};R={R}'.replace(".",",")+".gif"
         print("saving:"+saveName)
-        #plt.show()
-        anim.save(saveName, writer='imagemagick')
+        plt.show()
+        #anim.save(saveName, writer='imagemagick')
     return np.copy(state)
 def P3(part):
     if part == 1:
@@ -238,19 +242,19 @@ def P3(part):
             S = x[i]
             endState = P2(part="a", L=30, N=7, mu=0.01, reward=[0, R, 1, S], plot=False)
             y[i] = sum(sum(endState)) / (L * L * N)
-
+        plt.clf()
         plt.plot(x, y)
         plt.xlabel("R")
         # plt.title(f"Varying S nr of coop after 200 iterations")
-        plt.legend(["varying R, S=1.5", "varying S, R=0.8"])
+        plt.legend(["varying S, R=0.8"])
         plt.ylabel(f"normalized nr of cooperation")
-        plt.savefig(f"varyingR")
+        plt.savefig(f"varyingG")
 
 
 
 
 
-def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
+def P4(L = 10, N=7,mu=0, reward=[0, 0.5, 1, 1.5],plot = False):
     R = reward[1]
     initState = np.random.randint(N+1,size=[L,L])
     #print(initState)
@@ -261,6 +265,7 @@ def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
     fps = 5*10
     nSeconds = 10
 
+    zero = np.zeros(nSeconds*fps)
     one = np.zeros(nSeconds*fps)
     two = np.zeros(nSeconds*fps)
     three = np.zeros(nSeconds*fps)
@@ -271,6 +276,8 @@ def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
     for i in trange(nSeconds * fps):
         state = playGame(state, N, reward, mu)
         stateList.append(np.copy(state))
+
+        zero[i] = (state == 0).sum()
         one[i] = (state == 1).sum()
         two[i] = (state == 2).sum()
         three[i] = (state == 3).sum()
@@ -279,6 +286,7 @@ def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
         six[i] = (state == 6).sum()
         seven[i] = (state == 7).sum()
 
+    plt.plot(zero/(L*L))
     plt.plot(one/(L*L))
     plt.plot(two/(L*L))
     plt.plot(three/(L*L))
@@ -286,11 +294,16 @@ def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
     plt.plot(five/(L*L))
     plt.plot(six/(L*L))
     plt.plot(seven/(L*L))
-    plt.savefig("nrofPopulation")
+    plt.title(f",R={R}r")
+    plt.legend(["0","1","2","3","4","5","6","7"])
+    plt.savefig(f"nrofPopulation,R={R},mu={mu}".replace(".",","))
     plt.show()
     plt.imshow(state)
+    plt.colorbar()
+    plt.title(f"finalState,R={R}")
+    plt.savefig(f"nrofPopulationState,R={R},mu={mu}".replace(".",","))
     plt.show()
-    plt.savefig("nrofPopulationState")
+
 
     if plot:
         fig = plt.figure()
@@ -317,11 +330,69 @@ def P4(L = 10, N=7,mu=0, reward=[0,0.5,1,1.5],plot = False):
         plt.show()
         anim.save(saveName, writer='imagemagick')
     return state
-def P42():
-    state = P4(L=30, N=7, mu=0, reward=[0, 0.5, 1, 1.5], plot=False)
+def P42(R):
+    state = P4(L=30, N=7, mu=0.01, reward=[0, R, 1, 1.5], plot=False)
     print(state)
     print((state == 3).sum())
+def P5(L=10, N=7, mu=0, reward=[0, 0.5, 1, 1.5], plot=False):
+    R = reward[1]
+    S = reward[3]
+    initState = np.random.randint(N + 1, size=[L, L])
 
+    stateList = [np.copy(initState)]
+    state = initState
+
+    fps = 5 * 10
+    nSeconds = 10
+
+    zero = np.zeros(nSeconds * fps)
+    one = np.zeros(nSeconds * fps)
+    two = np.zeros(nSeconds * fps)
+    three = np.zeros(nSeconds * fps)
+    four = np.zeros(nSeconds * fps)
+    five = np.zeros(nSeconds * fps)
+    six = np.zeros(nSeconds * fps)
+    seven = np.zeros(nSeconds * fps)
+
+    for i in range(nSeconds * fps):
+        state = playGame(state, N, reward, mu)
+        stateList.append(np.copy(state))
+        if i >100:
+            zero[i] = (state == 0).sum()
+            one[i] = (state == 1).sum()
+            two[i] = (state == 2).sum()
+            three[i] = (state == 3).sum()
+            four[i] = (state == 4).sum()
+            five[i] = (state == 5).sum()
+            six[i] = (state == 6).sum()
+            seven[i] = (state == 7).sum()
+
+    if plot:
+        fig = plt.figure()
+
+        im = plt.imshow(initState, interpolation='none', aspect='auto', vmin=0, vmax=1)
+        plt.colorbar()
+
+        def animate_func(i):
+            if i % fps == 0:
+                print('.', end='')
+            im.set_array(stateList[i]/N)
+            # print(stateList[i]/10)
+            plt.title(f"R = {R}, gen = {i}")
+            return [im]
+
+        anim = animation.FuncAnimation(
+            fig,
+            animate_func,
+            frames=nSeconds * fps,
+            interval=1000 / fps,  # in ms
+        )
+        saveName = f'13,4a;R={R}'.replace(".", ",") + ".gif"
+        #print("saving:" + saveName)
+        plt.show()
+        #anim.save(saveName, writer='imagemagick')
+    return [np.var(zero), np.var(one), np.var(two), np.var(three),
+            np.var(four), np.var(five), np.var(six), np.var(seven)]
 if __name__ == '__main__':
     #P1(part="a",N=10,reward=[0,0.5,1,1.5],m=10)
     #P1(part="b",N=10,reward=[0,.01,1,10])
@@ -329,10 +400,19 @@ if __name__ == '__main__':
     #R = 0.86
     #P2(part="d", L=30, N=7, reward=[0,R,1,1.5], plot = True)
     #R = 0.82
-    #P2(part="a", L=30, N=7,mu=0.01, reward=[0,R,1,1.5], plot = True)
+    #P2(part="a", L=30, N=7,mu=0.01, reward=[0,0.86,1,1.5], plot = True)
+    #P3(part = 1)
     #P3(part = 1)
     #P3(part = 2)
     #P4(L = 30, N=7,mu=0, reward=[0,0.5,1,1.5],plot = True)
-    P42()
+    #P42(R=0.5)
+    #varList = P5(L=30, N=7, mu=0.01, reward=[0, R, 1, S], plot=False)
 
+    #RList = np.linspace(0,1,11)
+    #SList = np.linspace(1,3,11)
+    #varList = [[P5(L=30, N=7, mu=0.01, reward=[0, RList[i], 1, SList[j]], plot=False) for j in trange(len(SList))] for i in trange(len(RList))]
+    #np.save("varList", varList)
+
+    varList = np.load("varList.npy") #varList[r,s]
+    print(varList[1][2])
 
