@@ -408,11 +408,21 @@ if __name__ == '__main__':
     #P42(R=0.5)
     #varList = P5(L=30, N=7, mu=0.01, reward=[0, R, 1, S], plot=False)
 
-    #RList = np.linspace(0,1,11)
-    #SList = np.linspace(1,3,11)
+    RList = np.linspace(0,1,11)
+    SList = np.linspace(1,3,11)
     #varList = [[P5(L=30, N=7, mu=0.01, reward=[0, RList[i], 1, SList[j]], plot=False) for j in trange(len(SList))] for i in trange(len(RList))]
     #np.save("varList", varList)
 
     varList = np.load("varList.npy") #varList[r,s]
-    print(varList[1][2])
+    #print(varList[0][0])
+    summa = np.zeros([11,11])
+    for i in range(11):
+        for j in range(11):
+            print(sum(varList[i][j]))
+            summa[i][j] = sum(varList[i][j])
+    print(summa)
+
+    plt.contourf(RList,SList,summa)
+    plt.colorbar()
+    plt.show()
 
